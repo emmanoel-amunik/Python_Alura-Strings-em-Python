@@ -1,6 +1,9 @@
-url = ("https://bytebank.com/cambio?quantidade=100&moedaOrigem="
-       "real&moedaDestino=dólar")
+# url = ("https://bytebank.com/cambio?quantidade=100&moedaOrigem="
+       #"real&moedaDestino=dólar").strip()
+url = " ".strip()
 
+if url == "":
+    raise ValueError("The URL is empty")
 
 question_index = url.find("?")
 url_base = url[:question_index]
