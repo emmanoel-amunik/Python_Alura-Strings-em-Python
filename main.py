@@ -1,15 +1,13 @@
 # url = ("https://bytebank.com/cambio?quantidade=100&moedaOrigem="
-       #"real&moedaDestino=dólar").strip()
+       # "real&moedaDestino=dólar").strip()
 url = " ".strip()
 
 if url == "":
     raise ValueError("The URL is empty")
-
 question_index = url.find("?")
 url_base = url[:question_index]
 url_parameters = url[question_index+1:]
 print(url_parameters)
-
 
 search_parameter = "quantidade"
 parameter_index = url_parameters.find(search_parameter)

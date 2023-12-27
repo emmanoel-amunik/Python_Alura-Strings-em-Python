@@ -6,15 +6,6 @@ class UrlExtractor:
         self.url = self.url_strip(url)
         self.url_validation()
 
-    @staticmethod
-    def url_strip(url):
-        url_type = type(url)
-
-        if url_type == str:
-            return url.strip()
-        else:
-            return ""
-
     def url_validation(self):
         if not self.url:
             raise ValueError("The URL is empty")
@@ -24,6 +15,15 @@ class UrlExtractor:
         match = url_pattern.match(self.url)
         if not match:
             raise ValueError("The URL is invalid!")
+
+    @staticmethod
+    def url_strip(url):
+        url_type = type(url)
+
+        if url_type == str:
+            return url.strip()
+        else:
+            return ""
 
     def get_url_base(self):
         question_index = self.url.find("?")
@@ -46,8 +46,25 @@ class UrlExtractor:
             value = self.get_url_parameter()[index_value:index_comercial_e]
         return value
 
+    def __len__(self):
+        return len(self.url)
 
-url_extractor = UrlExtractor("https://bytebank.com/cambio?quantidade=100&"
-                             "moedaOrigem=real&moedaDestino=dólar")
+    def __str__(self):
+        return (self.url + "\n" + "Parameters: " + self.get_url_parameter() +
+                "\n" + "URL base: " + self.get_url_base())
+
+    def __eq__(self, other):
+        return self.url == other.url
+
+
+url_standard = ("https://bytebank.com/cambio?quantidade=100&moedaOrigem=real&"
+                "moedaDestino=dólar")
+
+url_extractor = UrlExtractor(url_standard)
+url_extractor2 = UrlExtractor(url_standard)
+print(f"The size the URL: {len(url_standard)}")
+print(url_extractor)
+print(url_extractor == url_extractor2)
+
 quantity_value = url_extractor.get_value_parameter("quantidade")
 print(quantity_value)
